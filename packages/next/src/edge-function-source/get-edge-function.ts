@@ -1,6 +1,6 @@
 /// <reference lib="DOM" />
 
-import { withNextRequestContext } from '../next-request-context';
+import { withNextRequestContext } from '../next-request-context/edge';
 import { toPlainHeaders } from './to-plain-headers';
 
 export interface NextjsParams {
