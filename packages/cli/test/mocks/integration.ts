@@ -2,8 +2,8 @@ import type {
   Configuration,
   Integration,
   MetadataSchema,
-  Resource,
-} from '../../src/commands/integration/types';
+} from '../../src/util/integration/types';
+import type { Resource } from '../../src/util/integration-resource/types';
 import { client } from './client';
 
 const metadataSchema1: MetadataSchema = {
@@ -265,7 +265,7 @@ const configurations: Record<string, Configuration[]> = {
       id: 'acme-first',
       integrationId: 'acme',
       ownerId: 'team_dummy',
-      slug: 'acme',
+      slug: 'acme-two-configurations',
       teamId: 'team_dummy',
       userId: 'user_dummy',
       scopes: ['read-write:integration-resource'],
@@ -277,13 +277,41 @@ const configurations: Record<string, Configuration[]> = {
       id: 'acme-second',
       integrationId: 'acme',
       ownerId: 'team_dummy',
-      slug: 'acme',
+      slug: 'acme-two-configurations',
       teamId: 'team_dummy',
       userId: 'user_dummy',
       scopes: ['read-write:integration-resource'],
       source: 'marketplace',
       installationType: 'marketplace',
       projects: ['acme-project'],
+    },
+  ],
+  'acme-two-projects': [
+    {
+      id: 'acme-first',
+      integrationId: 'acme',
+      ownerId: 'team_dummy',
+      slug: 'acme-two-projects',
+      teamId: 'team_dummy',
+      userId: 'user_dummy',
+      scopes: ['read-write:integration-resource'],
+      source: 'marketplace',
+      installationType: 'marketplace',
+      projects: ['acme-1', 'acme-2'],
+    },
+  ],
+  'acme-no-projects': [
+    {
+      id: 'acme-first',
+      integrationId: 'acme',
+      ownerId: 'team_dummy',
+      slug: 'acme-no-projects',
+      teamId: 'team_dummy',
+      userId: 'user_dummy',
+      scopes: ['read-write:integration-resource'],
+      source: 'marketplace',
+      installationType: 'marketplace',
+      projects: [],
     },
   ],
   'acme-no-results': [],

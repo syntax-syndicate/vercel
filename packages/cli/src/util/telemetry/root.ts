@@ -1,10 +1,8 @@
 import { TelemetryClient } from '.';
 
 export class RootTelemetryClient extends TelemetryClient {
-  trackCliExtension(extension?: string) {
-    if (extension) {
-      this.trackExtension(extension);
-    }
+  trackCliExtension() {
+    this.trackExtension();
   }
 
   trackCliDefaultDeploy(defaultDeploy: boolean) {
@@ -83,6 +81,13 @@ export class RootTelemetryClient extends TelemetryClient {
     });
   }
 
+  trackCliCommandHelp(actual: string) {
+    this.trackCliCommand({
+      command: 'help',
+      value: actual,
+    });
+  }
+
   trackCliCommandInit(actual: string) {
     this.trackCliCommand({
       command: 'init',
@@ -107,6 +112,13 @@ export class RootTelemetryClient extends TelemetryClient {
   trackCliCommandIntegration(actual: string) {
     this.trackCliCommand({
       command: 'integration',
+      value: actual,
+    });
+  }
+
+  trackCliCommandIntegrationResource(actual: string) {
+    this.trackCliCommand({
+      command: 'integration-resource',
       value: actual,
     });
   }
@@ -232,17 +244,17 @@ export class RootTelemetryClient extends TelemetryClient {
     this.trackCI(getContinuousIntegrationVendorName());
   }
 
-  trackVersion(version?: string) {
+  trackVersion(version: string | undefined) {
     super.trackVersion(version);
   }
 
-  trackCliOptionCwd(cwd?: string) {
+  trackCliOptionCwd(cwd: string | undefined) {
     if (cwd) {
       this.trackCliOption({ option: 'cwd', value: this.redactedValue });
     }
   }
 
-  trackCliOptionLocalConfig(localConfig?: string) {
+  trackCliOptionLocalConfig(localConfig: string | undefined) {
     if (localConfig) {
       this.trackCliOption({
         option: 'local-config',
@@ -251,7 +263,7 @@ export class RootTelemetryClient extends TelemetryClient {
     }
   }
 
-  trackCliOptionGlobalConfig(globalConfig?: string) {
+  trackCliOptionGlobalConfig(globalConfig: string | undefined) {
     if (globalConfig) {
       this.trackCliOption({
         option: 'global-config',
@@ -260,7 +272,7 @@ export class RootTelemetryClient extends TelemetryClient {
     }
   }
 
-  trackCliOptionScope(scope?: string) {
+  trackCliOptionScope(scope: string | undefined) {
     if (scope) {
       this.trackCliOption({
         option: 'scope',
@@ -269,7 +281,7 @@ export class RootTelemetryClient extends TelemetryClient {
     }
   }
 
-  trackCliOptionToken(token?: string) {
+  trackCliOptionToken(token: string | undefined) {
     if (token) {
       this.trackCliOption({
         option: 'token',
@@ -278,7 +290,7 @@ export class RootTelemetryClient extends TelemetryClient {
     }
   }
 
-  trackCliOptionTeam(team?: string) {
+  trackCliOptionTeam(team: string | undefined) {
     if (team) {
       this.trackCliOption({
         option: 'team',
@@ -287,7 +299,7 @@ export class RootTelemetryClient extends TelemetryClient {
     }
   }
 
-  trackCliOptionApi(api?: string) {
+  trackCliOptionApi(api: string | undefined) {
     if (api) {
       this.trackCliOption({
         option: 'api',
@@ -296,13 +308,13 @@ export class RootTelemetryClient extends TelemetryClient {
     }
   }
 
-  trackCliFlagDebug(debug?: boolean) {
+  trackCliFlagDebug(debug: boolean | undefined) {
     if (debug) {
       this.trackCliFlag('debug');
     }
   }
 
-  trackCliFlagNoColor(noColor?: boolean) {
+  trackCliFlagNoColor(noColor: boolean | undefined) {
     if (noColor) {
       this.trackCliFlag('no-color');
     }

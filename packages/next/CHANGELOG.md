@@ -1,5 +1,25 @@
 # @vercel/next
 
+## 4.3.20
+
+### Patch Changes
+
+- Fix edge cases with internal redirect sorting ([#12599](https://github.com/vercel/vercel/pull/12599))
+
+## 4.3.19
+
+### Patch Changes
+
+- Fix basePath root matching for error pages ([#12559](https://github.com/vercel/vercel/pull/12559))
+
+- Stabilize Chained Prerenders ([#12507](https://github.com/vercel/vercel/pull/12507))
+
+## 4.3.18
+
+### Patch Changes
+
+- Support allowHeader from Next.js for filtering request headers during revalidation ([#12420](https://github.com/vercel/vercel/pull/12420))
+
 ## 4.3.17
 
 ### Patch Changes
