@@ -1,5 +1,51 @@
 # vercel
 
+## 39.1.1
+
+### Patch Changes
+
+- Remove unused error handling code ([#12619](https://github.com/vercel/vercel/pull/12619))
+
+- Gracefully report error in `vercel link --repo` when a new Project fails to be created ([#12616](https://github.com/vercel/vercel/pull/12616))
+
+- Updated dependencies [[`a97f3f13ea3f27fd143e7692544bbd4919771a7a`](https://github.com/vercel/vercel/commit/a97f3f13ea3f27fd143e7692544bbd4919771a7a)]:
+  - @vercel/build-utils@8.5.0
+  - @vercel/node@3.2.26
+  - @vercel/static-build@2.5.35
+
+## 39.1.0
+
+### Minor Changes
+
+- Run framework detection locally when setting up a new Project ([#12609](https://github.com/vercel/vercel/pull/12609))
+
+- [cli] Swap out custom CI code for `ci-info` package ([#12569](https://github.com/vercel/vercel/pull/12569))
+
+### Patch Changes
+
+- [cli] bump chokidar to v4 ([#12613](https://github.com/vercel/vercel/pull/12613))
+
+- Updated dependencies [[`27eaa58a73634c6d8a2602e10b6109349d36bc89`](https://github.com/vercel/vercel/commit/27eaa58a73634c6d8a2602e10b6109349d36bc89)]:
+  - @vercel/next@4.3.21
+
+## 39.0.5
+
+### Patch Changes
+
+- Updated dependencies [[`3c69318aa97864752b3019ce63393904d76f6855`](https://github.com/vercel/vercel/commit/3c69318aa97864752b3019ce63393904d76f6855)]:
+  - @vercel/python@4.5.1
+
+## 39.0.4
+
+### Patch Changes
+
+- Fix file uploading in `vc deploy` when `sourceFilesOutsideRootDirectory` setting is `false` ([#12608](https://github.com/vercel/vercel/pull/12608))
+
+- Updated dependencies [[`56f525724428856f717b4f3fb12fd45b98f7f561`](https://github.com/vercel/vercel/commit/56f525724428856f717b4f3fb12fd45b98f7f561)]:
+  - @vercel/go@3.2.1
+  - @vercel/node@3.2.25
+  - @vercel/remix-builder@2.2.14
+
 ## 39.0.3
 
 ### Patch Changes

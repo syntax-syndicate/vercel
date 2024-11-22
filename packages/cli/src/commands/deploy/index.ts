@@ -4,10 +4,10 @@ import {
   scanParentDirs,
 } from '@vercel/build-utils';
 import {
-  Dictionary,
+  type Dictionary,
   fileNameSymbol,
   VALID_ARCHIVE_FORMATS,
-  VercelConfig,
+  type VercelConfig,
 } from '@vercel/client';
 import { errorToString, isError } from '@vercel/error-utils';
 import bytes from 'bytes';
@@ -15,8 +15,8 @@ import chalk from 'chalk';
 import fs from 'fs-extra';
 import ms from 'ms';
 import { join, resolve } from 'path';
-import Now, { CreateOptions } from '../../util';
-import Client from '../../util/client';
+import Now, { type CreateOptions } from '../../util';
+import type Client from '../../util/client';
 import { readLocalConfig } from '../../util/config/files';
 import { createGitMeta } from '../../util/create-git-meta';
 import createDeploy from '../../util/deploy/create-deploy';
@@ -310,18 +310,11 @@ export default async (client: Client): Promise<number> => {
   const contextName = org.slug;
   client.config.currentTeam = org.type === 'team' ? org.id : undefined;
 
-  // if we have `sourceFilesOutsideRootDirectory` set to `true`, we use the current path
-  // and upload the entire directory.
-  const sourcePath =
-    rootDirectory && !sourceFilesOutsideRootDirectory
-      ? join(cwd, rootDirectory)
-      : cwd;
-
   if (
     rootDirectory &&
     (await validateRootDirectory(
       cwd,
-      sourcePath,
+      join(cwd, rootDirectory),
       project
         ? `To change your Project Settings, go to https://vercel.com/${org?.slug}/${project.name}/settings`
         : ''
@@ -536,11 +529,10 @@ export default async (client: Client): Promise<number> => {
       client,
       now,
       contextName,
-      sourcePath,
+      cwd,
       createArgs,
       org,
       !project,
-      cwd,
       archive
     );
 

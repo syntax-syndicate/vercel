@@ -1,4 +1,5 @@
-import { beforeEach, describe, expect, it, MockInstance, vi } from 'vitest';
+import type { MockInstance } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import bytes from 'bytes';
 import fs from 'fs-extra';
 import { join } from 'path';
@@ -509,7 +510,7 @@ describe('deploy', () => {
       source: 'cli',
       version: 2,
       projectSettings: {
-        nodeVersion: '20.x',
+        nodeVersion: '22.x',
         sourceFilesOutsideRootDirectory: true,
       },
     });
@@ -607,7 +608,7 @@ describe('deploy', () => {
       source: 'cli',
       version: 2,
       projectSettings: {
-        nodeVersion: '20.x',
+        nodeVersion: '22.x',
         sourceFilesOutsideRootDirectory: true,
       },
     });
@@ -651,7 +652,7 @@ describe('deploy', () => {
     client.setArgv('deploy');
     const exitCodePromise = deploy(client);
     await expect(client.stderr).toOutput(
-      'WARN! Node.js Version "10.x" is discontinued and must be upgraded. Please set "engines": { "node": "20.x" } in your `package.json` file to use Node.js 20.'
+      'WARN! Node.js Version "10.x" is discontinued and must be upgraded. Please set "engines": { "node": "22.x" } in your `package.json` file to use Node.js 22.'
     );
     const exitCode = await exitCodePromise;
     expect(exitCode, 'exit code for "deploy"').toEqual(0);
@@ -779,7 +780,6 @@ describe('deploy', () => {
       createArgs: expect.any(Object),
       org: expect.any(Object),
       isSettingUpProject: expect.any(Boolean),
-      cwd: expect.any(String),
       archive: undefined,
     };
 
@@ -1148,11 +1148,8 @@ describe('deploy', () => {
   describe('first deploy', () => {
     describe('project setup', () => {
       const directoryName = 'unlinked';
-      let missingProjectSettings = false;
 
       beforeEach(() => {
-        missingProjectSettings = true;
-
         const user = useUser();
         client.scenario.get(`/v9/projects/:id`, (_req, res) => {
           return res.status(404).json({});
@@ -1164,17 +1161,6 @@ describe('deploy', () => {
 
         const createdDeploymentId = 'dpl_1';
         client.scenario.post(`/v13/deployments`, (req, res) => {
-          if (missingProjectSettings) {
-            res.status(400).json({
-              error: {
-                code: 'missing_project_settings',
-                framework: null,
-                projectSettings: {},
-              },
-            });
-            missingProjectSettings = false;
-            return;
-          }
           res.json({
             creator: {
               uid: user.id,
@@ -1238,6 +1224,9 @@ describe('deploy', () => {
         );
         client.stdin.write('\n');
 
+        await expect(client.stderr).toOutput('Want to modify these settings?');
+        client.stdin.write('\n');
+
         const exitCode = await exitCodePromise;
         expect(exitCode).toEqual(0);
       });
@@ -1268,6 +1257,9 @@ describe('deploy', () => {
         await expect(client.stderr).toOutput(
           '? In which directory is your code located?'
         );
+        client.stdin.write('\n');
+
+        await expect(client.stderr).toOutput('Want to modify these settings?');
         client.stdin.write('\n');
 
         const exitCode = await exitCodePromise;
