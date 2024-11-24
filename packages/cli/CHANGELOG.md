@@ -1,5 +1,13 @@
 # vercel
 
+## 39.1.2
+
+### Patch Changes
+
+- [cli] Explicitly route to `vercel set` subcommand ([#12641](https://github.com/vercel/vercel/pull/12641))
+
+- [cli] refactor `vercel git` to use getSubcommand() utility function ([#12642](https://github.com/vercel/vercel/pull/12642))
+
 ## 39.1.1
 
 ### Patch Changes
